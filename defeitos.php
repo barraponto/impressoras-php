@@ -21,6 +21,7 @@ $result = mysqli_query($link, $query);
 $keys = ['id', 'defeito'];
 
 while ($row = mysqli_fetch_row($result)) {
+  $row = array_map('utf8_encode', $row);
 
   $array[$i] = array_combine($keys, $row);
   $i++;

@@ -1,5 +1,10 @@
 <?php
 
+if (empty($_GET['defeito'])) {
+  echo '[]';
+  die;
+}
+
 $defeito = $_GET['defeito'];
 
 $array = [];
@@ -18,17 +23,17 @@ if (!$link) {
   die('Não foi possível conectar: ' . mysql_error());
 }
 
-$query = "select a.id, solucao from solucao as a join defeitos as b on a.id_defeito = b.id where b.id = '" . $defeito . "' ;";
+$query = "select id, solucao from solucao where id_defeito = " . $defeito . ";";
 
 $result = mysqli_query($link, $query);
 
 $keys = ['id', 'solucao'];
 
-while ($rows = mysqli_fetch_row($result)) {
+while ($row = mysqli_fetch_row($result)) {
+  $row = array_map('utf8_encode', $row);
 
-  $array[$i] = array_combine($keys, $rows);
+  $array[$i] = array_combine($keys, $row);
   $i++;
-
 }
 
 echo json_encode($array);

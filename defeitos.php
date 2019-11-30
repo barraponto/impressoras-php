@@ -18,7 +18,7 @@ $query = 'SELECT * FROM defeitos;';
 
 $result = mysqli_query($link, $query);
 
-$keys = ['id', 'defeito'];
+$keys = ['id', 'descricao'];
 
 while ($row = mysqli_fetch_row($result)) {
   $row = array_map('utf8_encode', $row);
